@@ -3,10 +3,13 @@ import pandas as pd
 data = pd.read_csv('input_csv/bitcoin-cross-new.csv', sep = ',')
 df = data.set_index('#')
 
-df1 = df.sort_values(by = ['Volume (24h)'], ascending = False)
-large_exchanges = df1[['Source', 'Volume (24h)']].head(10)
-large_exchanges.to_csv('output_csv/ten_largest_exchanges.csv')
+df1 = df[['Source', 'Pair', 'Volume (24h)']]  
+# df1 is a slice of the main dataframe(df) containing only 'Source', 'Pair' and 'Volume(24h)' columns.
+df2 = df1.groupby(['Source']).sum()           
+# df2 is another dataframe which is grouped by 'Source' and contains the total for a group object.
+df3 = df2.sort_values(by = ['Volume (24h)'], ascending = False).head(25)
+# df3 is another dataframe which contains sorted 25 values of 'Volume (24h)' in descending order.
+df3.to_csv('output_csv/top25_exchanges.csv')
 
-df3 = df.sort_values(by = ['Price'], ascending = True)
-cheapest_pairs = df3[['Pair', 'Price']].head(10)
-cheapest_pairs.to_csv('output_csv/ten_cheapest_pairs.csv')
+
+
