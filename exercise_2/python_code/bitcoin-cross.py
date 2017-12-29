@@ -15,7 +15,7 @@ df3.to_csv('output_csv/top25_exchanges.csv')
 
 
 
-## Most traded pairs in the given data ##
+## Most traded pairs wrt Exchanges in the given data ##
 
 df7 = pd.DataFrame(df.Pair.value_counts())
 # df7 is a dataframe which contains the 'Pair' and the frequency of the pairs.
@@ -36,3 +36,18 @@ df6 = df5.sort_values(by = ['Price'], ascending = True).head(25)
 # df6 is another dataframe which contains sorted 25 values of 'Price' in ascending order.
 df6.to_csv('output_csv/cheapest_25_pairs.csv')
 
+
+
+## Most traded pairs wrt Turnover in the given data ##
+
+df9 = df[['Pair', 'Volume (24h)']]
+# df9 is a Dataframe that contains only 'Pair' & 'Volume (24h)' columns.
+
+df10 = df9.groupby('Pair').sum()
+# df10 is another Dataframe that makes the groups according to the 'Pair' and then takes sum of the 'Volume (24h)' of the corresponding groups. 
+
+df11 = df10.sort_values(by = ['Volume (24h)'], ascending = False).head(10)
+# df11 is a Dataframe that sort the 'Volume (24h)' column in descending order.
+
+df11.to_csv('output_csv/most_traded_pairs_wrt_turnover.csv')
+df11
