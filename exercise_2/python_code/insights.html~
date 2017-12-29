@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>BITCOIN-CROSS EVALUTION EXERCISE - 2</title>
+</head>
+
+<body style="background-color : White;">
+
+
+<h1 style="text-align:center;">BITCOIN DATA FOR DIFFERENT EXCHANGES</h1>
+<p style="text-align:center;">Some of the insights of the data</p>
+<p><a href="output_html/top20_exchanges_wrt_turnover.html"> 20 LARGEST EXCHNAGES WITH RESPECT TO THE LAST 24 HRS TURNOVER </a></p>
+<p><a href="output_html/bottom20_exchanges_wrt_turnover.html"> 20 SMALLEST EXCHNAGES WITH RESPECT TO THE LAST 24 HRS TURNOVER</a></p>
+<p><a href="output_html/top20_exchanges_wrt_traded_pairs.html"> 20 SMALLEST EXCHNAGES WITH RESPECT TO THE TRADED PAIRS</a></p>
+<p><a href="output_html/bottom20_exchanges_wrt_traded_pairs.html"> 20 LARGEST EXCHNAGES WITH RESPECT TO THE TRADED PAIRS</a></p>
+<p><a href="output_html/cheapest_20_pairs.html"> 20 CHEAPEST PAIRS OF COINS WITH RESPECT TO THE PRICE</a></p>
+<p><a href="output_html/expensive_20_pairs.html"> 20 MOST EXPENSIVE PAIRS OF COINS WITH RESPECT TO THE PRICE</a></p> 
+<p><a href="output_html/most_traded_pairs_wrt_exchanges.html"> 10 MOST TRADED PAIRS WITH RESPECT TO THE EXCHANGES</a></p>
+<p><a href="output_html/least_traded_pairs_wrt_exchanges.html"> 10 LEAST TRADED PAIRS WITH RESPECT TO THE EXCHANGES</a></p>
+<p><a href="output_html/most_traded_pairs_wrt_turnover.html"> 10 MOST TRADED PAIRS WITH RESPECT TO THE TURNOVER</a></p>
+<p><a href="output_html/least_traded_pairs_wrt_turnover.html"> 10 LEAST TRADED PAIRS WITH RESPECT TO THE TURNOVER</a></p>
+
+
+</body>
+</html>
+
+
