@@ -25,9 +25,8 @@ df15 = pd.DataFrame(df.Source.value_counts())
 df16 = df15.rename(columns = {'Source' : 'No_of_traded_pair'})
 df16.index.name = 'Source'
 # df16 is another dataframe where we change the names of the index column to 'Pair' and 'Pair column to 'No_of_traded_pairs'.
-df16.head(10).to_csv('output_csv/most_traded_pairs_wrt_exchanges.csv')
-df16.tail(10).to_csv('output_csv/least_traded_pairs_wrt_exchanges.csv')
-
+df16.head(10).to_csv('output_csv/top20_exchanges_wrt_traded_pairs.csv')
+df16.tail(10).to_csv('output_csv/bottom20_exchnages_wrt_traded_pairs.csv')
 
 
 
