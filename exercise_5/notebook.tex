@@ -1,0 +1,784 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{outlier\_detection}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{k+kn}{import} \PY{n+nn}{json}
+         \PY{k+kn}{from} \PY{n+nn}{pprint} \PY{k+kn}{import} \PY{n}{pprint}
+         \PY{n}{data} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{input\PYZus{}csv/ed\PYZus{}trade\PYZus{}data.json}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{data} \PY{o}{=} \PY{n}{json}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         \PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}pprint (data)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} 275
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{l1} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{l1}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:} [u'ETH\_NEWB',
+          u'ETH\_NTC',
+          u'ETH\_LNK',
+          u'ETH\_IXT',
+          u'ETH\_ETHP',
+          u'ETH\_SUB',
+          u'ETH\_1ST',
+          u'ETH\_ETHG',
+          u'ETH\_ETHD',
+          u'ETH\_BNN',
+          u'ETH\_RLC',
+          u'ETH\_SKIN',
+          u'ETH\_BNB',
+          u'ETH\_XNN',
+          u'ETH\_SDRN',
+          u'ETH\_KNC',
+          u'ETH\_IND',
+          u'ETH\_0x5046',
+          u'ETH\_TAAS',
+          u'ETH\_LUCK',
+          u'ETH\_NIMFA',
+          u'ETH\_PPP',
+          u'ETH\_WTT',
+          u'ETH\_PPT',
+          u'ETH\_EBCSH',
+          u'ETH\_NDC',
+          u'ETH\_TOV',
+          u'ETH\_CM',
+          u'ETH\_0xe469',
+          u'ETH\_CODE',
+          u'ETH\_BTH2',
+          u'ETH\_KEY',
+          u'ETH\_DOM',
+          u'ETH\_PGL',
+          u'ETH\_0x5f6e',
+          u'ETH\_ETL',
+          u'ETH\_RVT',
+          u'ETH\_TKR',
+          u'ETH\_EGOLD',
+          u'ETH\_MCAP',
+          u'ETH\_DEL',
+          u'ETH\_EDOGE',
+          u'ETH\_SHIT',
+          u'ETH\_VEN',
+          u'ETH\_HGT',
+          u'ETH\_SMT',
+          u'ETH\_DET',
+          u'ETH\_0x1245',
+          u'ETH\_ACC',
+          u'ETH\_AION',
+          u'ETH\_BNT',
+          u'ETH\_BQX',
+          u'ETH\_CNX',
+          u'ETH\_DNT',
+          u'ETH\_BAT',
+          u'ETH\_POE',
+          u'ETH\_SALT',
+          u'ETH\_BAS',
+          u'ETH\_BCAP',
+          u'ETH\_CCT',
+          u'ETH\_FNL',
+          u'ETH\_FYN',
+          u'ETH\_0xd51e',
+          u'ETH\_0x50d2',
+          u'ETH\_POW',
+          u'ETH\_0x4dc3',
+          u'ETH\_POS',
+          u'ETH\_IQT',
+          u'ETH\_MYST',
+          u'ETH\_BITS',
+          u'ETH\_PIX',
+          u'ETH\_ETHB',
+          u'ETH\_BTM',
+          u'ETH\_LRC',
+          u'ETH\_ARC',
+          u'ETH\_NMR',
+          u'ETH\_BET',
+          u'ETH\_SND',
+          u'ETH\_MVC',
+          u'ETH\_TIX',
+          u'ETH\_SNC',
+          u'ETH\_HOWL',
+          u'ETH\_BMC',
+          u'ETH\_EXN',
+          u'ETH\_MDA',
+          u'ETH\_FUCK',
+          u'ETH\_MOD',
+          u'ETH\_RUB',
+          u'ETH\_STORJ',
+          u'ETH\_SNT',
+          u'ETH\_SWT',
+          u'ETH\_QVT',
+          u'ETH\_TRX',
+          u'ETH\_ELIX',
+          u'ETH\_DAY',
+          u'ETH\_EBET',
+          u'ETH\_TFL',
+          u'ETH\_SONM',
+          u'ETH\_WILD',
+          u'ETH\_0x08d3',
+          u'ETH\_0x6eb9',
+          u'ETH\_CDX',
+          u'ETH\_CDT',
+          u'ETH\_BLX',
+          u'ETH\_ZRX',
+          u'ETH\_GEN',
+          u'ETH\_STH',
+          u'ETH\_GNO',
+          u'ETH\_BOP',
+          u'ETH\_EOS',
+          u'ETH\_DGD',
+          u'ETH\_0xf814',
+          u'ETH\_OAX',
+          u'ETH\_PAY',
+          u'ETH\_0x8096',
+          u'ETH\_STX',
+          u'ETH\_FLIP',
+          u'ETH\_STU',
+          u'ETH\_ELTC3',
+          u'ETH\_ELTC2',
+          u'ETH\_XRL',
+          u'ETH\_MyB',
+          u'ETH\_EURB',
+          u'ETH\_EXRP2',
+          u'ETH\_ART',
+          u'ETH\_NET',
+          u'ETH\_BCPT',
+          u'ETH\_CTR',
+          u'ETH\_AIR',
+          u'ETH\_REX',
+          u'ETH\_MGO',
+          u'ETH\_BRAT',
+          u'ETH\_VIBE',
+          u'ETH\_REP',
+          u'ETH\_REQ',
+          u'ETH\_0x9375',
+          u'ETH\_WINGS',
+          u'ETH\_0xdf75',
+          u'ETH\_SIFT',
+          u'ETH\_CVC',
+          u'ETH\_PLY',
+          u'ETH\_OPT',
+          u'ETH\_YESTER',
+          u'ETH\_0x5783',
+          u'ETH\_LTG',
+          u'ETH\_PLR',
+          u'ETH\_RHOC',
+          u'ETH\_0xcdb8',
+          u'ETH\_BTN',
+          u'ETH\_OMG',
+          u'ETH\_RENT',
+          u'ETH\_TIME',
+          u'ETH\_MKR',
+          u'ETH\_0xdb45',
+          u'ETH\_MTH',
+          u'ETH\_SHT',
+          u'ETH\_MTL',
+          u'ETH\_SHLD',
+          u'ETH\_MANA',
+          u'ETH\_EBCC',
+          u'ETH\_TNT',
+          u'ETH\_EVX',
+          u'ETH\_10MT',
+          u'ETH\_PTOY',
+          u'ETH\_GFL',
+          u'ETH\_ITT',
+          u'ETH\_KICK',
+          u'ETH\_ITS',
+          u'ETH\_FRD',
+          u'ETH\_ANT',
+          u'ETH\_DRT',
+          u'ETH\_CASH',
+          u'ETH\_BLUE',
+          u'ETH\_ADST',
+          u'ETH\_EBTC',
+          u'ETH\_DENT',
+          u'ETH\_0x949b',
+          u'ETH\_LINK',
+          u'ETH\_PRO',
+          u'ETH\_CAG',
+          u'ETH\_EDG',
+          u'ETH\_E4ROW',
+          u'ETH\_0x26f4',
+          u'ETH\_COB',
+          u'ETH\_COSS',
+          u'ETH\_PRS',
+          u'ETH\_IFT',
+          u'ETH\_EETH',
+          u'ETH\_VOISE',
+          u'ETH\_WIC',
+          u'ETH\_RCC',
+          u'ETH\_CLD',
+          u'ETH\_GUP',
+          u'ETH\_DBET',
+          u'ETH\_FC',
+          u'ETH\_SAN',
+          u'ETH\_WTC',
+          u'ETH\_ENG',
+          u'ETH\_AVT',
+          u'ETH\_VERI',
+          u'ETH\_ALIS',
+          u'ETH\_SHOUC',
+          u'ETH\_EUSD',
+          u'ETH\_FUN',
+          u'ETH\_EMV',
+          u'ETH\_CFI',
+          u'ETH\_REAL',
+          u'ETH\_BTCR',
+          u'ETH\_ONEK',
+          u'ETH\_LMT',
+          u'ETH\_EDO',
+          u'ETH\_ADX',
+          u'ETH\_CSNO',
+          u'ETH\_PPT2',
+          u'ETH\_IETH',
+          u'ETH\_ARENA',
+          u'ETH\_PLBT',
+          u'ETH\_WOLK',
+          u'ETH\_ICE',
+          u'ETH\_HVN',
+          u'ETH\_0x78cb',
+          u'ETH\_ICN',
+          u'ETH\_BTCM',
+          u'ETH\_FIT',
+          u'ETH\_ELTC',
+          u'ETH\_0x91bc',
+          u'ETH\_ELITE',
+          u'ETH\_DICE',
+          u'ETH\_INXT',
+          u'ETH\_DTC',
+          u'ETH\_ECN',
+          u'ETH\_ETH',
+          u'ETH\_AE',
+          u'ETH\_FLIK',
+          u'ETH\_HBT',
+          u'ETH\_DDF',
+          u'ETH\_0xb320',
+          u'ETH\_MTP',
+          u'ETH\_0x7667',
+          u'ETH\_WRC',
+          u'ETH\_AST',
+          u'ETH\_IBTC',
+          u'ETH\_ROC',
+          u'ETH\_LUM',
+          u'ETH\_LUN',
+          u'ETH\_LLT',
+          u'ETH\_HDG',
+          u'ETH\_ICOS',
+          u'ETH\_0x4e27',
+          u'ETH\_KIN',
+          u'ETH\_EZEC2',
+          u'ETH\_LLA',
+          u'ETH\_FUDD',
+          u'ETH\_GOOC',
+          u'ETH\_PT',
+          u'ETH\_SCL',
+          u'ETH\_HMQ',
+          u'ETH\_ATM',
+          u'ETH\_EREAL',
+          u'ETH\_JET',
+          u'ETH\_ETG',
+          u'ETH\_CAT',
+          u'ETH\_SNGLS',
+          u'ETH\_ECASH',
+          u'ETH\_CREDO',
+          u'ETH\_MBRS',
+          u'ETH\_ETBS',
+          u'ETH\_0x149a',
+          u'ETH\_SWP',
+          u'ETH\_NXX',
+          u'ETH\_MCO',
+          u'ETH\_ATT',
+          u'ETH\_DLT',
+          u'ETH\_ATS',
+          u'ETH\_GXC']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{l1}\PY{p}{:}
+            \PY{n}{x\PYZus{}i} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+            \PY{n}{df\PYZus{}i} \PY{o}{=}  \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{x\PYZus{}i}\PY{p}{)} 
+            \PY{n}{df\PYZus{}i}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{output\PYZus{}csv/}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{i}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}df.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}117}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
+          \PY{n}{x1} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ETH\PYZus{}SUB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{df1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{x1}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}
+          \PY{n}{df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}
+          \PY{n}{df2} \PY{o}{=} \PY{n}{df1}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{amountBase}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{} amountBase = (amount * price)}
+          \PY{c+c1}{\PYZsh{} amount is equivalent to the volume}
+          \PY{n}{df2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}117}]:}                             amount            amountBase     price
+          date                                                              
+          2017-11-02T10:11:41.000Z   2195.48    0.9177143576428902  0.000418
+          2017-11-02T09:59:13.000Z   5221.20     2.140692206952241  0.000410
+          2017-11-02T09:23:49.000Z   3120.00                1.2792  0.000410
+          2017-11-02T08:46:45.000Z    138.79  0.056907793047758844  0.000410
+          2017-11-02T07:29:14.000Z      0.07             0.0000259  0.000370
+          2017-11-02T07:28:25.000Z    638.82             0.2363634  0.000370
+          2017-11-02T07:26:59.000Z     80.00              0.029608  0.000370
+          2017-11-02T07:25:03.000Z  14943.22             5.6784236  0.000380
+          2017-11-02T07:25:03.000Z    200.00               0.07602  0.000380
+          2017-11-02T07:25:03.000Z    100.00                0.0383  0.000383
+          2017-11-02T05:55:05.000Z   3277.88             1.2455944  0.000380
+          2017-11-02T05:46:10.000Z   3761.12             1.4292256  0.000380
+          2017-11-02T05:23:11.000Z   2500.00                 1.045  0.000418
+          2017-11-02T05:11:49.000Z   4025.02             1.5295076  0.000380
+          2017-11-02T04:20:10.000Z     50.31            0.02102958  0.000418
+          2017-11-02T03:39:25.000Z     99.69             0.0388791  0.000390
+          2017-11-02T03:17:25.000Z   5569.76             2.1165088  0.000380
+          2017-11-02T03:13:07.000Z    869.59     0.347839653948348  0.000400
+          2017-11-02T03:07:10.000Z   2299.67    0.9635624643324923  0.000419
+          2017-11-02T02:57:02.000Z   1000.00                 0.419  0.000419
+          2017-11-02T02:50:59.000Z    372.72   0.15617026661969385  0.000419
+          2017-11-02T02:23:03.000Z    443.00              0.182516  0.000412
+          2017-11-02T01:01:54.000Z    324.41             0.1200317  0.000370
+          2017-11-02T01:00:17.000Z  10662.01          3.9450503201  0.000370
+          2017-11-02T00:59:18.000Z      0.50              0.000185  0.000370
+          2017-11-02T00:59:07.000Z      0.50           0.000185005  0.000370
+          2017-11-01T23:33:11.000Z    996.97          0.3688888697  0.000370
+          2017-11-01T23:24:12.000Z   1017.84          0.3766109784  0.000370
+          2017-11-01T22:34:40.000Z   2690.76          0.9956081076  0.000370
+          2017-11-01T22:32:55.000Z      7.02             0.0027378  0.000390
+          {\ldots}                            {\ldots}                   {\ldots}       {\ldots}
+          2017-10-25T02:58:59.000Z   1046.85           0.489193005  0.000467
+          2017-10-25T02:58:59.000Z   1049.99    0.4861499999999999  0.000463
+          2017-10-25T02:55:00.000Z     24.00               0.01032  0.000430
+          2017-10-25T02:55:00.000Z     23.92           0.011177816  0.000467
+          2017-10-25T02:50:43.000Z   2990.00             1.3953134  0.000467
+          2017-10-25T02:46:58.000Z    725.00             0.3389375  0.000467
+          2017-10-25T02:46:58.000Z    500.00               0.23365  0.000467
+          2017-10-25T02:43:50.000Z   5517.61            2.63189997  0.000477
+          2017-10-25T02:42:21.000Z   2200.00                1.0494  0.000477
+          2017-10-25T01:55:44.000Z      5.00           0.002499885  0.000500
+          2017-10-25T00:56:25.000Z    500.00                  0.25  0.000500
+          2017-10-25T00:30:39.000Z    624.57    0.3122732305006333  0.000500
+          2017-10-24T22:55:20.000Z   1000.00              0.499977  0.000500
+          2017-10-24T22:49:31.000Z    761.23   0.37148260243471226  0.000488
+          2017-10-24T22:45:06.000Z    720.00               0.35136  0.000488
+          2017-10-24T22:39:16.000Z    309.68   0.15112448407986054  0.000488
+          2017-10-24T22:37:24.000Z    900.00                0.4392  0.000488
+          2017-10-24T22:37:24.000Z    897.30               0.44865  0.000500
+          2017-10-24T21:51:07.000Z   1157.63            0.55218951  0.000477
+          2017-10-24T21:44:05.000Z    605.12            0.28864224  0.000477
+          2017-10-24T21:41:44.000Z   2492.27            1.18881279  0.000477
+          2017-10-24T21:37:22.000Z   2070.00             0.9935586  0.000480
+          2017-10-24T21:35:28.000Z   2551.07             1.1990029  0.000470
+          2017-10-24T21:32:37.000Z    194.73          0.0915250473  0.000470
+          2017-10-24T21:32:20.000Z     91.00             0.0428155  0.000470
+          2017-10-24T21:31:29.000Z     29.62           0.014152436  0.000478
+          2017-10-24T21:31:12.000Z   2102.00              1.002654  0.000477
+          2017-10-24T21:30:58.000Z     16.41           0.007878441  0.000480
+          2017-10-24T20:54:45.000Z    250.00                  0.12  0.000480
+          2017-10-24T20:54:45.000Z   1000.00                  0.48  0.000480
+          
+          [500 rows x 3 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{n}{df3} \PY{o}{=} \PY{n}{df2}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{df3}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}118}]:}                              price
+          date                              
+          2017-11-02T10:11:41.000Z  0.000418
+          2017-11-02T09:59:13.000Z  0.000410
+          2017-11-02T09:23:49.000Z  0.000410
+          2017-11-02T08:46:45.000Z  0.000410
+          2017-11-02T07:29:14.000Z  0.000370
+          2017-11-02T07:28:25.000Z  0.000370
+          2017-11-02T07:26:59.000Z  0.000370
+          2017-11-02T07:25:03.000Z  0.000380
+          2017-11-02T07:25:03.000Z  0.000380
+          2017-11-02T07:25:03.000Z  0.000383
+          2017-11-02T05:55:05.000Z  0.000380
+          2017-11-02T05:46:10.000Z  0.000380
+          2017-11-02T05:23:11.000Z  0.000418
+          2017-11-02T05:11:49.000Z  0.000380
+          2017-11-02T04:20:10.000Z  0.000418
+          2017-11-02T03:39:25.000Z  0.000390
+          2017-11-02T03:17:25.000Z  0.000380
+          2017-11-02T03:13:07.000Z  0.000400
+          2017-11-02T03:07:10.000Z  0.000419
+          2017-11-02T02:57:02.000Z  0.000419
+          2017-11-02T02:50:59.000Z  0.000419
+          2017-11-02T02:23:03.000Z  0.000412
+          2017-11-02T01:01:54.000Z  0.000370
+          2017-11-02T01:00:17.000Z  0.000370
+          2017-11-02T00:59:18.000Z  0.000370
+          2017-11-02T00:59:07.000Z  0.000370
+          2017-11-01T23:33:11.000Z  0.000370
+          2017-11-01T23:24:12.000Z  0.000370
+          2017-11-01T22:34:40.000Z  0.000370
+          2017-11-01T22:32:55.000Z  0.000390
+          {\ldots}                            {\ldots}
+          2017-10-25T02:58:59.000Z  0.000467
+          2017-10-25T02:58:59.000Z  0.000463
+          2017-10-25T02:55:00.000Z  0.000430
+          2017-10-25T02:55:00.000Z  0.000467
+          2017-10-25T02:50:43.000Z  0.000467
+          2017-10-25T02:46:58.000Z  0.000467
+          2017-10-25T02:46:58.000Z  0.000467
+          2017-10-25T02:43:50.000Z  0.000477
+          2017-10-25T02:42:21.000Z  0.000477
+          2017-10-25T01:55:44.000Z  0.000500
+          2017-10-25T00:56:25.000Z  0.000500
+          2017-10-25T00:30:39.000Z  0.000500
+          2017-10-24T22:55:20.000Z  0.000500
+          2017-10-24T22:49:31.000Z  0.000488
+          2017-10-24T22:45:06.000Z  0.000488
+          2017-10-24T22:39:16.000Z  0.000488
+          2017-10-24T22:37:24.000Z  0.000488
+          2017-10-24T22:37:24.000Z  0.000500
+          2017-10-24T21:51:07.000Z  0.000477
+          2017-10-24T21:44:05.000Z  0.000477
+          2017-10-24T21:41:44.000Z  0.000477
+          2017-10-24T21:37:22.000Z  0.000480
+          2017-10-24T21:35:28.000Z  0.000470
+          2017-10-24T21:32:37.000Z  0.000470
+          2017-10-24T21:32:20.000Z  0.000470
+          2017-10-24T21:31:29.000Z  0.000478
+          2017-10-24T21:31:12.000Z  0.000477
+          2017-10-24T21:30:58.000Z  0.000480
+          2017-10-24T20:54:45.000Z  0.000480
+          2017-10-24T20:54:45.000Z  0.000480
+          
+          [500 rows x 1 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}135}]:} \PY{n}{df3}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}135}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f20e6e3a350>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}136}]:} \PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{n}{percentiles} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.10}\PY{p}{,} \PY{l+m+mf}{0.15}\PY{p}{,} \PY{l+m+mf}{0.25}\PY{p}{,} \PY{l+m+mf}{0.50}\PY{p}{,} \PY{l+m+mf}{0.75}\PY{p}{,} \PY{l+m+mf}{0.95}\PY{p}{,} \PY{l+m+mf}{0.99}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}136}]:} count      500.000000
+          mean      1777.962440
+          std       3318.493026
+          min          0.000000
+          10\%         28.692000
+          15\%         87.550000
+          25\%        172.000000
+          50\%        555.745000
+          75\%       2000.000000
+          95\%       7131.576500
+          99\%      18008.931800
+          max      27887.750000
+          Name: amount, dtype: float64
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
