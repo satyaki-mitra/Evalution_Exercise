@@ -1,6 +1,8 @@
 import json
 import pandas as pd
+import numpy as np
 from pprint import pprint
+import datetime
 data = open("input_csv/ed_trade_data.json")
 data = json.load(data)
 l = list(data.keys())
@@ -14,10 +16,12 @@ for i in l:
     df_i['amountBase'] = df_i['amountBase'].astype(float)
     df = df_i[['datetime', 'amount', 'amountBase', 'price']].set_index('datetime')
     pair = i
-    shape = df_i.shape
+    row, col = df_i.shape
     maxdate = df.index.max()
     mindate = df.index.min()
     total_days = (maxdate - mindate).days
+    total_seconds = (np.datetime64(maxdate) - np.datetime64(mindate)).item().total_seconds()
+    total_hours = (total_seconds / 3600)
     grouped = df.groupby(lambda x : x.month)
     grouped.index = 'month'
     a = grouped.count()
@@ -31,12 +35,15 @@ for i in l:
         daily_trades_average = sum(no_of_trades) / (total_days)
     else:
         daily_trades_average = 0
-    result = [pair, shape, mindate, maxdate, total_days, sum(no_of_trades), sum(a), sum(b), (sum(c)/len(c)), daily_trades_average]
+    avg_hourly_trades = (sum(no_of_trades) / total_hours)
+    result = [pair, row, sum(no_of_trades), str(datetime.timedelta(seconds=total_seconds)), avg_hourly_trades, mindate, maxdate, sum(a), sum(b), (sum(c)/len(c)), total_days]
     l2.append(result)
 output = pd.DataFrame(l2)
-output.columns = ['pair', 'shape', 'min_date', 'max_date', 'total_days', 'no_of_trades', 'volume_traded', 'total_turnover', 'avg_price_of_unit_volume', 'avg_daily_trades']
-indexing = output.set_index('pair')
-resultant = indexing.sort_values(by = ['shape', 'total_days', 'volume_traded', 'total_turnover'], ascending = [False, False, False, False])
-resultant.to_csv('output_files/initial_analysis.csv')
-resultant.to_html('output_files/initial_analysis.html')
-
+output.columns = ['pair', 'no_of_rows', 'no_of_trades', 'total_time', 'avg_hourly_trades', 'min_date', 'max_date', 'volume_traded', 'total_turnover', 'avg_price_of_unit_volume', 'total_days']
+resultant = output.set_index('pair')
+s = resultant.sort_values(by = ['no_of_rows'], ascending = False)
+s1 = s.query('no_of_trades >= 500')
+s2 = s1.query('total_days <= 4')
+top_daily_traded_pairs = s2.sort_values(by = ['avg_hourly_trades'], ascending = False)
+top_daily_traded_pairs.to_csv('output_files/initial_study/top_daily_traded_pairs.csv')
+top_daily_traded_pairs.to_html('output_files/initial_study/top_daily_traded_pairs.html')
