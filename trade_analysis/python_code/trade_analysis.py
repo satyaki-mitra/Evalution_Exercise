@@ -22,11 +22,6 @@ for i in l:
     total_days = (maxdate - mindate).days
     total_seconds = (np.datetime64(maxdate) - np.datetime64(mindate)).item().total_seconds()
     total_hours = (total_seconds / 3600)
-    grouped = df.groupby(lambda x : x.month)
-    grouped.index = 'month'
-    a = grouped.count()
-    grouped = df.groupby(lambda x: x.month)
-    grouped.index = 'month'
     no_of_trades = (grouped['amount'].count())
     a = grouped['amount'].sum()
     b = grouped['amountBase'].sum()
