@@ -30,7 +30,7 @@ def detect_outlier(input_df, col_name):
 
 
 l = []
-def output_file(input_data):
+def proportion_outlier(input_data):
     row1, col1 = data.shape
     total_data = row1
     row2, col2 = outliers.shape
@@ -51,7 +51,7 @@ for i in pairs:
     data = data_manipulation(i)
     outliers = detect_outlier(data, 'price')
     outliers.to_csv('output_files/outlier_study/outliers_'+i+'.csv')
-    output_data = output_file(outliers)
+    output_data = proportion_outlier(outliers)
 
 
 
