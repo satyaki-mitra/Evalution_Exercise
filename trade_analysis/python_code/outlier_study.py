@@ -4,7 +4,7 @@ import datetime
 
 
 
-def data_reading(df_in):
+def data_manipulation(df_in):
     trade_data1 = data2[df_in]
     trade_data = pd.DataFrame(trade_data1)
     trade_data['datetime'] = pd.to_datetime(trade_data['date'])
@@ -48,7 +48,7 @@ pair_iter = iter(pairs)
 for i in pairs:
     fp = open("input_csv/ed_trade_data.json")
     data2 = json.load(fp)
-    data = data_reading(i)
+    data = data_manipulation(i)
     outliers = detect_outlier(data, 'price')
     outliers.to_csv('output_files/outlier_study/outliers_'+i+'.csv')
     output_data = output_file(outliers)
