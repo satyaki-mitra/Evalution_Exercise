@@ -20,8 +20,8 @@ def detect_outlier(input_df, col_name):
     q1 = input_df[col_name].quantile(0.25)
     q3 = input_df[col_name].quantile(0.75)
     iqr = q3 - q1 #Interquartile range
-    lower_bound = q1 - 1.5 * iqr
-    upper_bound = q3 + 1.5 * iqr
+    lower_bound = q1 - (1.5 * iqr)
+    upper_bound = q3 + (1.5 * iqr)
     df_out = input_df[(input_df[col_name] < lower_bound) | (input_df[col_name] > upper_bound)]
     row1, col1 = df_out.shape
     total_data = row1
