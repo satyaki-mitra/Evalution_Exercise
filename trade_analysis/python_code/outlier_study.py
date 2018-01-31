@@ -4,6 +4,26 @@ import datetime
 
 
 
+data1 = pd.read_csv('output_files/initial_study/top__daily_traded_pairs.csv')
+pairs = list(data1['pair'])
+pair_iter = iter(pairs)
+for i in pairs:
+    fp = open("input_csv/ed_trade_data.json")
+    data2 = json.load(fp)
+    data = data_manipulation(i)
+    outliers = detect_outlier(data, 'price')
+    outliers.to_csv('output_files/outlier_study/outliers_'+i+'.csv')
+    output_data = proportion_outlier(outliers)
+
+
+
+report = pd.DataFrame(output_data)
+report.columns = ['pair', 'total_data', 'outliers_in_data', '%_of_outliers']
+outlier_report = report.sort_values(by = ['%_of_outliers'], ascending = True).set_index('pair')
+outlier_report.to_csv('output_files/outlier_study/outlier_report.csv')
+
+
+
 def data_manipulation(df_in):
     trade_data1 = data2[df_in]
     trade_data = pd.DataFrame(trade_data1)
@@ -40,22 +60,3 @@ def proportion_outlier(input_data):
     l.append(output)
     return l
 
-
-
-data1 = pd.read_csv('output_files/initial_study/top__daily_traded_pairs.csv')
-pairs = list(data1['pair'])
-pair_iter = iter(pairs)
-for i in pairs:
-    fp = open("input_csv/ed_trade_data.json")
-    data2 = json.load(fp)
-    data = data_manipulation(i)
-    outliers = detect_outlier(data, 'price')
-    outliers.to_csv('output_files/outlier_study/outliers_'+i+'.csv')
-    output_data = proportion_outlier(outliers)
-
-
-
-report = pd.DataFrame(output_data)
-report.columns = ['pair', 'total_data', 'outliers_in_data', '%_of_outliers']
-outlier_report = report.sort_values(by = ['%_of_outliers'], ascending = True).set_index('pair')
-outlier_report.to_csv('output_files/outlier_study/outlier_report.csv')
