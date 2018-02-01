@@ -1,11 +1,11 @@
 import random
 
 def MontyHall(choice, monty_stall=[1,0,0]):
-    count = 1 - monty_stall[choice]
-    return count
+    s = 1 - monty_stall[choice]
+    return s
 
 monty_stall = [1,0,0]
-N = 10000
+N = int(raw_input("No of simulations = "))
 
 wins = 0.0
 for i in range(N):
@@ -14,5 +14,6 @@ for i in range(N):
     wins = wins + count 
 
 p = wins/N
-print('Trys',  N, 'wins ', wins, ' prob of winning', p)
+print 'wins =',wins 
+print 'prob of winning =',p
 

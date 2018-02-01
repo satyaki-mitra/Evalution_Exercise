@@ -15,7 +15,7 @@ for i in range(N):
     elif (choice == 2):
         losses = losses + 1
 
-P = (wins/N)
+Prob = (wins/N)
 
 print "Total no of win :",wins
-print "The probability of winning the cash =",P
+print "The probability of winning the cash =",Prob
