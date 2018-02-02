@@ -18,7 +18,7 @@ def data_manipulation(df_in):
 def detect_outlier(input_df, col_name):
     q1 = input_df[col_name].quantile(0.25)
     q3 = input_df[col_name].quantile(0.75)
-    iqr = q3 - q1 #Interquartile range
+    iqr = (q3 - q1) #Interquartile range
     lower_bound = q1 - (1.5 * iqr)
     upper_bound = q3 + (1.5 * iqr)
     df_out = input_df[(input_df[col_name] < lower_bound) | (input_df[col_name] > upper_bound)]
@@ -29,10 +29,10 @@ def detect_outlier(input_df, col_name):
 
 
 l = []
-def proportion_outlier(input_data):
-    row1, col1 = data.shape
+def proportion_outlier(input_data1, input_data2):
+    row1, col1 = input_data1.shape
     total_data = row1
-    row2, col2 = outliers.shape
+    row2, col2 = input_data2.shape
     outliers_in_data = row2
     percentage_of_outliers = (float(row2)/float(row1))*100
     output = [i, total_data, outliers_in_data, percentage_of_outliers]
@@ -43,17 +43,23 @@ def proportion_outlier(input_data):
 
 data1 = pd.read_csv('output_files/initial_study/top__daily_traded_pairs.csv')
 pairs = list(data1['pair'])
-pair_iter = iter(pairs)
 for i in pairs:
     fp = open("input_csv/ed_trade_data.json")
     data2 = json.load(fp)
-    data = data_manipulation(i)
+    if (type(data2) != 'DataFrame'):
+        data = data_manipulation(i)
+    else:
+    	data = data2
     outliers = detect_outlier(data, 'price')
     outliers.to_csv('output_files/outlier_study/outliers_'+i+'.csv')
-    output_data = proportion_outlier(outliers)
+    output_data = proportion_outlier(data, outliers)
 
 report = pd.DataFrame(output_data)
 report.columns = ['pair', 'total_data', 'outliers_in_data', '%_of_outliers']
 outlier_report = report.sort_values(by = ['%_of_outliers'], ascending = True).set_index('pair')
 outlier_report.to_csv('output_files/outlier_study/outlier_report.csv')
+
+
+
+
 
