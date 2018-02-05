@@ -33,20 +33,20 @@ def detect_outlier(input_df, col_name):
 
 
 
-def percentage_of_outliers(list1):
+def percentage_of_outliers(list1, database):
     ''' This function is determining the percentage of the outliers. For that it's first determining the shape
     of the actual dataframe and the dataframe of outliers, the list of pairs is passed as arguments in this. 
     Then it's determining amount of data of those two dataframes. Then it's calculating the relative percentage 
     of the outliers in the dataframe for each pair of coins and reurning a dataframe containing the summary. '''
     info_of_outliers = []
-    for p in pair_list:
-        trade_data = trade_db[p]
+    for p in list1:
+        trade_data = database[p]
         trade_dataframe = pd.DataFrame(trade_data)
         row1, col1 = trade_dataframe.shape
         outlier_data = pd.read_csv('output_files/outlier_study/OutlierReport_'+ p +'.csv')
         outlier_dataframe = pd.DataFrame(outlier_data)
         row2, col2 = outlier_dataframe.shape
-        relative_percentage = (row2/row1) * 100
+        relative_percentage = (float(row2)/float(row1)) * 100
         summary1 = [p, row1, row2, relative_percentage]
         info_of_outliers.append(summary1)
     report_of_outliers = pd.DataFrame(info_of_outliers).sort_values(by = 2)
@@ -65,7 +65,7 @@ for i in pair_list:
     outliers = detect_outlier(manipulated_data, 'price')
     outliers.to_csv('output_files/outlier_study/OutlierReport_'+i+'.csv')
 
-report = percentage_of_outliers(pair_list)
+report = percentage_of_outliers(pair_list, trade_db)
 report.columns = ['pair', 'total_data', 'outliers_in_data', '%_of_outliers']
 summary_report = report.set_index('pair')
 summary_report.to_csv('output_files/outlier_study/summary_report_of_outliers.csv')
