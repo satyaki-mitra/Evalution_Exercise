@@ -71,7 +71,7 @@ def ReportMaking(summary_list, old_report):
     
     report = pd.DataFrame(summary_list).sort_values(by = 2)
     report.columns = ['pair', 'total_data', 'outliers_in_data', '%_of_outliers']
-    initial_report = old_report[['pair', 'min_date', 'max_date', 'no_of_trades', 'total_time', 'avg_hourly_trades', 'volume_traded', 'total_turnover', 'avg_price_of_unit_volume']]
+    initial_report = old_report[['pair', 'min_date', 'max_date', 'total_time', 'no_of_trades', 'avg_hourly_trades', 'volume_traded', 'total_turnover', 'avg_price_of_unit_volume']]
     summary_report = pd.merge(initial_report, report, how = 'left', left_on = 'pair', right_on = 'pair')
     final_report = summary_report.set_index('pair').sort_values(by = '%_of_outliers')
     return final_report
