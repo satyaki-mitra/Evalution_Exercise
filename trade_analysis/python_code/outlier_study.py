@@ -55,8 +55,8 @@ def ProcessPairlist(trade_data, pair_name):
 
 
 def PrepareSummary(summary_list, old_report):
-    ''' This function is taking the list of summary of outliers as argument and producting a well formated 
-    Dataframe containing summary of Outliers.'''
+    ''' This function is taking the list of summary of outliers and the old report of top_hourly_traded_pairs as argument 
+    and merger both the dataframes to produce a well formated dataframe containing summary of Outliers.'''
     
     report = pd.DataFrame(summary_list).sort_values(by = 2)
     report.columns = ['pair', 'total_data', 'outliers_in_data', '%_of_outliers']
