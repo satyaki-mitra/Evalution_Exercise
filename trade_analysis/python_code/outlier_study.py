@@ -36,27 +36,38 @@ def DetectOutlier(input_df, col_name):
 
 
 
-def ProcessPairlist(trade_data, pair_name):
+def ProcessPairlist(data, pair_name):
     ''' This function is taking a dictionary and one of the top traded pair name as arguments and then calling
     another function DataManipulation to make the readymade dataframe and then calling another function 
     DetectOutliers that takes the resultant dataframe as the argument of the previous function to detect 
-    the outliers in that dataframe. Then it's calculating the no of rows in actual dataframe & rows in outlier 
-    dataframe and hence calculating the percentage of outliers and finally returning a list of all the results obtained. '''
+    the outliers in that dataframe. '''
     
-    TradeDataframe = pd.DataFrame(trade_data)
+    TradeDataframe = pd.DataFrame(data)
     manipulated_data = DataManipulation(TradeDataframe)
-    outlier = DetectOutlier(manipulated_data, 'price')
-    outlier.to_csv('output_files/outlier_study/OutlierReport_'+ pair_name +'.csv')
-    row1, col1 = TradeDataframe.shape
-    row2, col2 = outlier.shape
-    relative_percentage = (float(row2)/float(row1)) * 100
-    summary = [pair_name, row1, row2, relative_percentage]
+    outliers = DetectOutlier(manipulated_data, 'price')
+    outliers.to_csv('output_files/outlier_study/OutlierReport_'+ pair_name +'.csv')
+    summary = [pair_name] + PrepareSummary(TradeDataframe, outliers)
     return summary
 
 
-def PrepareSummary(summary_list, old_report):
-    ''' This function is taking the list of summary of outliers and the old report of top_hourly_traded_pairs as argument 
-    and merger both the dataframes to produce a well formated dataframe containing summary of Outliers.'''
+
+def PrepareSummary(df1, df2):
+    ''' This function is determining the percentage of the outliers. For that it's first determining the shape
+    of df1 and the df2 which are passed as arguments in this. Then it's determining amount of data of those two
+    dataframes. Then it's calculating the relative percentage of the outliers in the dataframe for each pair of 
+    coins and reurning a list of the summary. '''
+   
+    row1, col1 = df1.shape
+    row2, col2 = df2.shape
+    relative_percentage = (float(row2)/float(row1)) * 100
+    summary = [row1, row2, relative_percentage]
+    return summary
+
+
+
+def ReportMaking(summary_list, old_report):
+    ''' This function is taking the list of summary of outliers as argument and producting a well formated 
+    Dataframe containing summary of Outliers.'''
     
     report = pd.DataFrame(summary_list).sort_values(by = 2)
     report.columns = ['pair', 'total_data', 'outliers_in_data', '%_of_outliers']
@@ -75,5 +86,5 @@ for pair in PairList:
     SummaryOutliers = ProcessPairlist(TradeData, pair)
     info_outliers.append(SummaryOutliers)
 
-SummaryReport = PrepareSummary(info_outliers, top_hourly_traded_pairs)
-SummaryReport.to_csv('output_files/outlier_study/Outlier_Summary_report.csv')
+SummaryReport = ReportMaking(info_outliers, top_hourly_traded_pairs)
+SummaryReport.to_csv('output_files/outlier_study/Outlier_Summary_Report.csv')
