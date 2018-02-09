@@ -3,9 +3,9 @@ import pandas as pd
 import numpy as np
 from pprint import pprint
 import datetime
-data = open("input_csv/ed_trade_data.json")
-data = json.load(data)
-l = list(data.keys())
+RawData = open("input_csv/ed_trade_data.json")
+TradeData_daily = json.load(RawData)
+l = list(TradeData_daily.keys())
 l2 = []
 for i in l:
     x_i = data[i]
