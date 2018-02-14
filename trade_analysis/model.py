@@ -4,6 +4,7 @@ class Pair(object):
     	def __init__(self):
         	self.pairs = None
     	def get_list(self, data):
+    	    '''This function returns the list of pairs which are the keys of the dictionary supplied in json file'''
         	self.pairs = data.keys()
        		return self.pairs
 
