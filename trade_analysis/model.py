@@ -1,8 +1,11 @@
 class Pair(object):
     
-    def __init__(self):
-        self.pairlist = pairlist
-        return pairlist
+    class Pair(object):
+    	def __init__(self):
+        	self.pairs = None
+    	def get_list(self, data):
+        	self.pairs = data.keys()
+       		return self.pairs
 
 
 class Trade(object):
