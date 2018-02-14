@@ -41,4 +41,4 @@ s1 = s.query('no_of_trades >= 500')
 s2 = s1.query('total_days <= 4')
 top_daily_traded_pairs = s2.sort_values(by = ['avg_hourly_trades'], ascending = False)
 top_daily_traded_pairs.to_csv('output_files/initial_study/top_hourly_traded_pairs.csv')
-top_daily_traded_pairs.to_html('output_files/initial_study/top_hourly_traded_pairs.html')
+top_daily_traded_pairs
