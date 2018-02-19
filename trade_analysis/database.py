@@ -29,7 +29,7 @@ class Trade(Base):
 		 self.txHash = txHash
 		 
 	def __repr__(self):
-	    return "<Trade(date = %s, price = %s, amount = %s, amountBase = %s, buyer = %s, seller = %s, side = %s, tokenAddr = %s, txHash = %s)>" %(self.amount, self.amountBase, self.buyer, self.date, self.price, self.seller, self.side, self.tokenAddr, self.txHash)            
+	    return "<(date = %s, price = %s, amount = %s, amountBase = %s, buyer = %s, seller = %s, side = %s, tokenAddr = %s, txHash = %s)>" %(self.amount, self.amountBase, self.buyer, self.date, self.price, self.seller, self.side, self.tokenAddr, self.txHash)            
 	
 	 
 	 

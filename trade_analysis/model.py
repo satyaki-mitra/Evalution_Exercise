@@ -1,38 +1,25 @@
+import pandas as pd
 class Pair(object):
-    def __init__(self):
-        self.pair = pair
-       	return self.pair
+    def get_name(self, name):
+        self._name = name
+        return self._name
 
-    	
-
-class Trade(object):
+class Trade(Pair):
     
-    def __init__(self):
-        '''This function initialize the variables of the data as "None" type'''
-        self.date = None
-        self.price = None
-        self.amount = None
-        self.amountBase = None
-        self.buyer = None
-        self.seller = None
-        self.side = None
-        self.tokenAddr = None
-        self.txHash = None
-		
     def __init__(self, _dict):
-	    ''' This function initiates the class trades, updates the trade informations one by one'''
-	    self.__dict__.update(_dict)
-	            
-	           
+        ''' This function takes the trade informations from the dictionary '''
+        self._date = pd.to_datetime(_dict['date'])
+        self._price = float(_dict['price'])
+        self._amount = float(_dict['amount'])
+        self._amountBase = float(_dict['amountBase'])
+        self._buyer = str(_dict['buyer'])
+        self._seller = str(_dict['seller'])
+        self._side = str(_dict['side'])
+        self._tokenAddr = str(_dict['tokenAddr'])
+        self._txHash = str(_dict['txHash'])
+        
     def __repr__(self):
-        '''This function returns representation of the Trade class'''
-        return "Trade(%s, %s, %s, %s, %s, %s, %s, %s, %s)" %(self.amount, self.amountBase, self.buyer, self.date, self.price, self.seller, self.side, self.tokenAddr, self.txHash)            
-	
-	    
-	    
-		
-	
-	    
-	    
-	    
+        '''This function returns the representation of the Trade class'''
+        return "Trade( %s | %f | %f | %f | %s | %s | %s | %s | %s )" %(self._date, self._amount, self._amountBase, self._price, self._buyer, self._seller, self._side, self._tokenAddr, self._txHash)         
     
+
