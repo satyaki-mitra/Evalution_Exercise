@@ -1,10 +1,13 @@
 import pandas as pd
-class Pair(object):
-    def get_name(self, name):
-        self._name = name
-        return self._name
 
-class Trade(Pair):
+
+class Pair(object):
+    def __init__(self, name):
+        self._name = name
+    def __repr__(self):
+        return "%s" % self._name
+
+class Trade(object):
     
     def __init__(self, _dict):
         ''' This function takes the trade informations from the dictionary '''
@@ -20,6 +23,7 @@ class Trade(Pair):
         
     def __repr__(self):
         '''This function returns the representation of the Trade class'''
-        return "Trade( %s | %f | %f | %f | %s | %s | %s | %s | %s )" %(self._date, self._amount, self._amountBase, self._price, self._buyer, self._seller, self._side, self._tokenAddr, self._txHash)         
+        return "(%s | %f | %f | %f | %s | %s | %s | %s | %s)" %(self._date, self._amount, self._amountBase, self._price, self._buyer, self._seller, self._side, self._tokenAddr, self._txHash)         
+    
     
 
