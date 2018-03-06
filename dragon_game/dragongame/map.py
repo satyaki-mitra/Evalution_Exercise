@@ -12,16 +12,20 @@ class Room(object):
     def add_paths(self, paths):
         self.paths.update(paths)       
         
-        
-main_corridor = Room("Main Corridor",
+
+game_description = Room("Game Description",
 """
 THE DRAGON ARMY HAS INVADED YOUR CASTLE AND WANT TO TAKE AWAY ALL THE GOLDS & DIAMONDS KEPT IN DIFFERENT LOCKERS.
 THEY HAVE ALREADY SHOOT ALL YOUR CREW MEMBERS AND YOU'RE THE LAST SURVIVING MEMBER OF THE CASTLE.
 YOUR AIM IS TO SAVE THE GOLDS AND DIAMONDS ANYHOW AND ESCAPE FROM THE CASTLE BY THE SECRET DOOR.
 YOU'RE RUNNING THROUGH THE MAIN CORRIDOR TOWARDS THE GOLD ROOM.
-   
-   
-       
+
+WOULD YOU LIKE TO PLAY THIS GAME ?? 
+""")
+
+      
+main_corridor = Room("Main Corridor",
+"""     
 THREE DRAGONS JUMP OUT SUDDENLY IN FRONT OF YOU. ALL OF THEM ARE DAMN CRUEL AND ARMED TOO.
 YOU FORGOT TO LOAD THE GUN AND ONLY 3 BULLET LEFT WITH YOU.
 NOW YOU'RE IN A SITUATION TO TAKE A PROMPT ACTION. EITHER YOU CAN SHOOT OR YOU CAN DODGE THE DRAGONS.
@@ -134,6 +138,12 @@ ALL YOUR GOLDS AND DIAMONDS ARE OWNED BY THE DRAGONS NOW.
 """)
 
 
+game_description.add_paths({
+    'yes' : main_corridor,
+    'no' : game_description
+})
+
+
 main_corridor.add_paths({
     'shoot' : first_level_winner,
     'SHOOT' : first_level_winner,
@@ -199,4 +209,4 @@ garage.add_paths({
     '*' : the_end_looser
 })
 
-START = main_corridor
+START = game_description
