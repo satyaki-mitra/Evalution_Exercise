@@ -12,8 +12,7 @@ for i in pairlist:
     pair_data = jsondata[str(pair)]
     trades = []
     for j in pair_data:
-        trade = Trade(j)
+        trade = Trade(i, j)
         trades.append(trade)
-    info_trade = (pair, trades)
-    total_data.append(info_trade)
+    total_data.append(trades)
 print pd.DataFrame(total_data)

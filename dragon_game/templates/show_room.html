@@ -1,0 +1,25 @@
+$def with (room)
+
+<center><h1>$room.name </h1></center>
+
+<pre>
+
+<center>$room.description</center>
+</pre>
+
+$if room.name == "Death":
+    <center><a href="/">Play Again?</a></center>
+
+$elif room.name == "The End Winner":
+    <center><a herf="/">You Won The Game</a></center>
+
+$elif room.name == "The End Looser":
+    <center><a herf="/">YOU SHOULD BE ASHAMED OF YOURSELF</a></center>
+    
+$else:
+    <form action="/game" method="POST">
+        <b><h3 style = "text-align : center; font-size : 100%">TYPE YOUR  ANSWER IN  THE  FOLLOWING  BOX</h3></b>
+        <br><div style="text-align : center;"><input type="text" name="action"></div></br> 
+        <br><div style="text-align : center;"><input type="SUBMIT", value = "SUBMIT YOUR ANSWER"></div><br>
+    </form>
+    
