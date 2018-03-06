@@ -32,6 +32,8 @@ class GameEngine(object):
             return render.you_died()
         elif (session.room == "The End Looser"):
             return render.end_looser()
+        elif (session.room == "The End Winner"):
+            return render.you_won()
         else:
             return render.show_room(room=session.room)
             
