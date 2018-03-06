@@ -3,7 +3,6 @@ $def with (room)
 <center><h1>$room.name </h1></center>
 
 <pre>
-
 <center>$room.description</center>
 </pre>
 
@@ -12,6 +11,9 @@ $if room.name == "Death":
 
 $elif room.name == "The End Winner":
     <center><a herf="/">You Won The Game</a></center>
+    
+$elif room.name == "The End Looser":
+    <center><a herf="/">You Should Be Ashamed Of Yourself</a></center>
     
 $else:
     <form action="/game" method="POST">

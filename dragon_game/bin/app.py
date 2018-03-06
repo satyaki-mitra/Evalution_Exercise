@@ -30,11 +30,13 @@ class Index(object):
 class GameEngine(object):
 
     def GET(self):
-        if session.room:
-            return render.show_room(room=session.room)
-        else:
+        if (session.room == "Death"):
             return render.you_died()
-
+        elif (session.room == "The End Looser"):
+            return render.end_looser()
+        else:
+            return render.show_room(room=session.room)
+            
     def POST(self):
         form = web.input(action=None)
         if session.room and form.action:
