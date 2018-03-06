@@ -8,7 +8,6 @@ urls = (
 
 app = web.application(urls, globals())
 
-# little hack so that debug mode works with sessions
 if web.config.get('_session') is None:
     store = web.session.DiskStore('sessions')
     session = web.session.Session(app, store,
@@ -22,7 +21,6 @@ render = web.template.render('templates/', base="layout")
 
 class Index(object):
     def GET(self):
-        # this is used to "setup" the session with starting values
         session.room = map.START
         web.seeother("/game")
 
