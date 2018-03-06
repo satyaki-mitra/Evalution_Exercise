@@ -127,7 +127,6 @@ SUCH A CARELESS YOU ARE.
 IT WAS THE LAST STEP TO ESCAPE FROM THE DRAGON ARMY AND SAVING ALL YOUR BELONGINGS
 AND YOU FAILED IN THIS LAST STEP !!
 BEING A MEMBER OF THIS CASTLE YOU DON'T EVEN KNOW WHICH CAR IS IN WELL CONDITION.
-YOU SHOULD BE ASHAMED OF YOURSELF.
 """)
 
 death = Room("Death",
@@ -156,6 +155,8 @@ main_corridor.add_paths({
 first_level_winner.add_paths({
     'next' : gold_room,
     'NEXT' : gold_room,
+    'back' : main_corridor,
+    'BACK' : main_corridor,
     '*' : first_level_winner
 })
 
@@ -185,6 +186,8 @@ gold_locker.add_paths({
 third_level_winner.add_paths({
     'next' : diamond_room,
     'NEXT' : diamond_room,
+    'back' : gold_locker,
+    'BACK' : gold_locker,
     '*' : third_level_winner
 })
 
@@ -198,6 +201,8 @@ diamond_room.add_paths({
 fourth_level_winner.add_paths({
     'next' : garage,
     'NEXT' : garage,
+    'BACK' : diamond_room,
+    'back' : diamond_room,
     '*' : fourth_level_winner
 })
 
@@ -206,7 +211,10 @@ garage.add_paths({
     '2' : the_end_winner,
     '7' : the_end_winner,
     '1' : the_end_winner,
-    '*' : the_end_looser
+    '3' : the_end_looser,
+    '4' : the_end_looser,
+    '5' : the_end_looser,
+    '6' : the_end_looser
 })
 
 START = game_description
